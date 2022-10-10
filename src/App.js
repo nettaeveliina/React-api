@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import "./App.css";
+
+const URL = "https://api.thedogapi.com/v1/images/search";
 
 function App() {
+  const [image, setImage] = useState("");
+  useEffect(() => {
+    axios
+      .get(URL)
+      .then((response) => {
+        const dogs = response.data[0].url;
+        setImage(dogs);
+        console.log(dogs);
+       
+      })
+        
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Api for random dog pictures</h1>
+      <img src={image} />
+      <h2>Refresh the page to get a new image.</h2>
     </div>
   );
 }
-
 export default App;
