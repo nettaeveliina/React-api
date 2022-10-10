@@ -13,8 +13,10 @@ function App() {
         const dogs = response.data[0].url;
         setImage(dogs);
         console.log(dogs);
-       
       })
+      .catch((error) => {
+        alert(error);
+      });
         
   }, []);
 
